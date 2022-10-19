@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57acb70310c6744cf9cdb83f9629acac, type: 3}
+  m_Name: Phosphorus
+  m_EditorClassIdentifier: 
+  id: phosphorus
+  displayName: Phosphorus
+  icon: {fileID: 21300000, guid: 042987f976c8e432ab8c2de35a8838ba, type: 3}
+  prefab: {fileID: 0}
+  itemType: 1
+  description: It is the second most abundant element in most organism
