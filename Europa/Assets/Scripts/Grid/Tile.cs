@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] public Color baseColor, offsetColor;
+    [SerializeField] private Color baseColor, offsetColor;
     [SerializeField] private GameObject highlight;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
+    public string tileId;
+
     //[HideInInspector]
-    public bool canPlace;
+    public bool canPlace = false;
 
-    public bool isTherePlate, isThereSoil;
-
-    private void Start()
-    {
-        isTherePlate = false;
-        isThereSoil = false;
-    }
+    public bool isTherePlate, isThereSoil = false;
 
     public bool _isOffset;
     public void Init(bool isOffset)
@@ -152,6 +148,8 @@ public class Tile : MonoBehaviour
             {
                 canPlace = false;
             }
+
+            DataManager.Instance.AddTile(gameObject);
 
             GridManager.Instance.itemData = null;
         }

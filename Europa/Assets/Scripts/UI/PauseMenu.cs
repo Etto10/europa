@@ -9,7 +9,6 @@ public class PauseMenu : MonoBehaviour
     public bool isPaused;
 
     public GameObject pauseObj;
-    public GameObject options;
     public GameObject uiObj;
 
     private void Start()
@@ -33,12 +32,13 @@ public class PauseMenu : MonoBehaviour
         pauseObj.SetActive(false);
     }
 
-    public void Options()
+    public void SaveAndLoad()
     {
-        options.SetActive(true);
+        DataManager.Instance.SaveData();
+        Application.Quit();
     }
 
-    public void Exit()
+    public void Menu()
     {
         SceneManager.LoadScene("MenuScene");
     }

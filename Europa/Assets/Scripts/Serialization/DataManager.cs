@@ -20,9 +20,8 @@ public class DataManager : MonoBehaviour
     {
         Instance = this;
 
-        path = Application.dataPath + "/SaveFiles/europa.xml";
+        path = Application.persistentDataPath + "/europa.xml";
 
-        LoadData();
     }
 
     private void Start()
@@ -40,6 +39,18 @@ public class DataManager : MonoBehaviour
         ItemDB.items.Add(item);
     }
 
+    public void AddTile(GameObject obj)
+    {
+        TileItem item = new();
+        Tile tile = obj.GetComponent<Tile>();
+        item.canPlace = tile.canPlace;
+        item.isTherePlate = tile.isTherePlate;
+        item.isThereSoil = tile.isThereSoil;
+        item.itemName = tile.tileId;
+        
+        ItemDB.tiles.Add(item);
+    }
+
 
     public void SaveData()
     {
@@ -49,7 +60,7 @@ public class DataManager : MonoBehaviour
         stream.Close();
     }
 
-    private void LoadData()
+    public void LoadData()
     {
         if (!File.Exists(path))
         {
@@ -71,6 +82,16 @@ public class DataManager : MonoBehaviour
             GameObject go = Instantiate(requestedPrefab, item.position, Quaternion.identity);
             go.name = item.item_id;
         }
+
+        foreach (TileItem item in ItemDB.tiles)
+        {
+            GameObject go = GameObject.Find(item.itemName);
+            Tile tile = go.GetComponent<Tile>();
+            tile.canPlace = item.canPlace;
+            tile.isTherePlate = item.isTherePlate;
+            tile.isThereSoil = item.isThereSoil;
+        }
+        GridManager.Instance.HideGrid();
     }
 
     IEnumerator SaveCoroutine()
@@ -93,6 +114,11 @@ public class DataManager : MonoBehaviour
 
         return item_.prefab;
     }
+
+    private void OnApplicationQuit()
+    {
+        SaveData();
+    }
 }
 
 
@@ -100,6 +126,7 @@ public class DataManager : MonoBehaviour
 public class ItemDB
 {
     public List<Item> items = new();
+    public List<TileItem> tiles = new();
 }
 
 [System.Serializable]
@@ -108,6 +135,13 @@ public class Item
     public string prefab_id;
     public string item_id;
     public Vector3 position;
+}
+
+[System.Serializable]
+public class TileItem
+{
+    public bool canPlace, isTherePlate, isThereSoil;
+    public string itemName;
 }
 
 

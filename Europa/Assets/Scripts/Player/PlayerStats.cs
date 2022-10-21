@@ -41,7 +41,7 @@ public class PlayerStats : MonoBehaviour
 
         hunger = PlayerPrefs.GetFloat("hunger");
         oxygen = PlayerPrefs.GetFloat("oxygen");
-        if (oxygen == 0 || hunger == 0)
+        if (oxygen < 0 || hunger < 0)
         {
             NewValues();
         }

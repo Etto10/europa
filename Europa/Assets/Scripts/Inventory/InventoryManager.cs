@@ -56,7 +56,6 @@ public class InventoryManager : MonoBehaviour
             itemName.text = item.displayName;
             itemIcon.sprite = item.icon;
             //itemDesc.text = item.description;
-
         }
 
         SetInventoryItems();

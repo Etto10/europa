@@ -41,20 +41,24 @@ public class GridManager : MonoBehaviour
 
     IEnumerator GenerateGrid()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
         for (int x = -posFix; x < width - posFix; x++)
         {
             for (int y = -posFix; y < height - posFix; y++)
             {
                 var spawnedTile = Instantiate(tilePrefab, new Vector3(x * 5, y * 5), Quaternion.identity);
+                Tile tile = spawnedTile.GetComponent<Tile>();
+                tile.tileId = x.ToString() + " " + y.ToString();
+                spawnedTile.transform.name = tile.tileId;
                 spawnedTile.transform.SetParent(container, true);
-                spawnedTile.transform.name = x.ToString() + " " + y.ToString();
 
                 var isOffset = (x % 2 == 0 && y % 2 != 0) || (x % 2 != 0 && y % 2 == 0);
                 spawnedTile.Init(isOffset);
             }
         }
-        HideGrid();
+
+        yield return new WaitForSeconds(.5f);
+        DataManager.Instance.LoadData();
     }
 
     public void ShowGrid()
@@ -92,7 +96,5 @@ public class GridManager : MonoBehaviour
             StartCoroutine(GenerateGrid());
         }
     }
-
-    
 }
 

@@ -11,7 +11,13 @@ public class Plastic : MonoBehaviour
         if (collision.CompareTag("OxygenGenerator"))
         {
             playerCollision.SetActive(true);
-            Debug.Log("Plastic activated");
+        }
+        else if (collision.CompareTag("Soil"))
+        {
+            Soil soil = collision.gameObject.GetComponent<Soil>();
+
+            soil.canPlaceSeed = true;
+            Debug.Log("can place seed on " + soil.transform.name + "!");
         }
     }
 
