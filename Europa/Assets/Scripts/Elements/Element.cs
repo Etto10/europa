@@ -6,6 +6,7 @@ public class Element : MonoBehaviour
 {
     public ElementType elementType;
 
+
     private void Start()
     {
         int x = Random.Range(1, 5);

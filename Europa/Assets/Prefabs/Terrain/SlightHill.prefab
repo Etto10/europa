@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 300410051190352433}
   m_Layer: 0
   m_Name: SlightHill
-  m_TagString: Untagged
+  m_TagString: Occludee
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
