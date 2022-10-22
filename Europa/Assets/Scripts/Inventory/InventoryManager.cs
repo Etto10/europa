@@ -7,11 +7,12 @@ using UnityEngine.UI;
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance;
-    public List<InventoryItemData> items = new List<InventoryItemData>();
+    public List<InventoryItemData> items = new();
 
     [Header("References")]
     public Transform itemContent;
     public GameObject inventoryItem;
+    public GameObject inventoryPanel;
 
     [Header("Item List")]
     public InventoryItemController[] inventoryItems;
@@ -37,6 +38,23 @@ public class InventoryManager : MonoBehaviour
         items.Remove(item);
     }
 
+    public Transform inventoryTransform, spaceshipTransform;
+
+    private void Start()
+    {
+        ListItems();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ListItems();
+            inventoryPanel.SetActive(true);
+        }
+    }
+
+    bool firstTime = true;
     public void ListItems()
     {
         // Making sure that items don't multiply by destroying the previous elements
@@ -56,9 +74,24 @@ public class InventoryManager : MonoBehaviour
             itemName.text = item.displayName;
             itemIcon.sprite = item.icon;
             //itemDesc.text = item.description;
+
+            InventoryItemController inventoryItemController = obj.GetComponent<InventoryItemController>();
+            if (!inventoryItemController.hasToFindDistance)
+            {
+                inventoryItemController.inventoryTransform = inventoryTransform;
+                inventoryItemController.spaceShipTransform = spaceshipTransform;
+                Debug.Log(inventoryItemController.item.id + " has to find distance");
+                inventoryItemController.hasToFindDistance = true;
+            }
         }
 
         SetInventoryItems();
+
+        if (firstTime)
+        {
+            firstTime = false;
+            inventoryPanel.SetActive(false);
+        }
     }
 
     public void SetInventoryItems()

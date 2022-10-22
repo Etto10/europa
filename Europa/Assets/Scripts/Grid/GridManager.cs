@@ -61,6 +61,7 @@ public class GridManager : MonoBehaviour
         DataManager.Instance.LoadData();
     }
 
+
     public void ShowGrid()
     {
         for (int i = 0; i < container.childCount; i++)
