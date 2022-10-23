@@ -59,8 +59,8 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
     soundType: 0
-  - name: heaven
-    clip: {fileID: 8300000, guid: 083e8ee75677b4cf08f0cb64c67674f7, type: 3}
+  - name: revelation
+    clip: {fileID: 8300000, guid: ac9fc6dd8857949e6a34b66b36413be9, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -83,8 +83,8 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
     soundType: 0
-  - name: heaven
-    clip: {fileID: 8300000, guid: 083e8ee75677b4cf08f0cb64c67674f7, type: 3}
+  - name: revelation
+    clip: {fileID: 8300000, guid: ac9fc6dd8857949e6a34b66b36413be9, type: 3}
     volume: 1
     pitch: 1
     loop: 0

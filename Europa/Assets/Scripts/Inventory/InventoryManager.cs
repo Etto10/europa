@@ -80,7 +80,6 @@ public class InventoryManager : MonoBehaviour
             {
                 inventoryItemController.inventoryTransform = inventoryTransform;
                 inventoryItemController.spaceShipTransform = spaceshipTransform;
-                Debug.Log(inventoryItemController.item.id + " has to find distance");
                 inventoryItemController.hasToFindDistance = true;
             }
         }

@@ -8,14 +8,14 @@ public class Chest : MonoBehaviour
 {
     public static Chest Instance;
     public bool playerDistance;
-    public List<InventoryItemData> itemsContained = new List<InventoryItemData>();
+    public List<InventoryItemData> itemsContained = new();
     
 
     [Header("References")]
     public Transform itemContent;
     public GameObject chestItem;
-    public GameObject inventoryItem;
-    public Transform chestContent;
+    [SerializeField] private GameObject inventoryItem;
+    [SerializeField] private Transform chestContent;
 
 
     [Header("Item List")]

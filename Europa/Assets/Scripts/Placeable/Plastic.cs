@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class Plastic : MonoBehaviour
 {
-    public GameObject playerCollision;
+    public GameObject playerCollision, _light;
+
+    private void Start()
+    {
+        _light.SetActive(false);
+        playerCollision.SetActive(false);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("OxygenGenerator"))
         {
             playerCollision.SetActive(true);
+            _light.SetActive(true);
         }
         else if (collision.CompareTag("Soil"))
         {
@@ -25,7 +32,8 @@ public class Plastic : MonoBehaviour
     {
         if (collision.CompareTag("OxygenGenerator"))
         {
-            playerCollision.SetActive(true);
+            playerCollision.SetActive(false);
+            _light.SetActive(false);
         }
     }
 }
