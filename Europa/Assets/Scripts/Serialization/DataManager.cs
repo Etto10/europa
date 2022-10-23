@@ -60,6 +60,7 @@ public class DataManager : MonoBehaviour
         stream.Close();
     }
 
+    bool firstLoad = true;
     public void LoadData()
     {
         if (!File.Exists(path))
@@ -91,7 +92,12 @@ public class DataManager : MonoBehaviour
             tile.isTherePlate = item.isTherePlate;
             tile.isThereSoil = item.isThereSoil;
         }
-        GridManager.Instance.HideGrid();
+
+        if (firstLoad)
+        {
+            firstLoad = false;
+            GridManager.Instance.HideGrid();
+        }
     }
 
     IEnumerator SaveCoroutine()

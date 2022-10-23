@@ -5,21 +5,13 @@ using UnityEngine.UI;
 public class InventoryItemController : MonoBehaviour
 {
     public InventoryItemData item;
-    private Transform inventoryTransform;
-    private Transform spaceShipTransform;
+    [HideInInspector] public Transform inventoryTransform;
+    [HideInInspector] public Transform spaceShipTransform;
     public GameObject descriptionTxt;
 
 
-    private void Start()
-    {
-        inventoryTransform = GameObject.Find("InvPos").transform;
-        spaceShipTransform = GameObject.Find("SsPos").transform;
-    }
-
-    private void Update()
-    {
-        FindDistance();
-    }
+    
+    public bool hasToFindDistance = false;
 
     public void RemoveItem()
     {
@@ -32,6 +24,7 @@ public class InventoryItemController : MonoBehaviour
     {
         item = newItem;
     }
+
 
     public void UseItem()
     {
@@ -79,15 +72,27 @@ public class InventoryItemController : MonoBehaviour
 
     }
 
-    private void FindDistance()
+    float invDistance, spaceDistance;
+    public bool FindDistance()
     {
-        if (Vector2.Distance(transform.position, inventoryTransform.position) < Vector2.Distance(transform.position, spaceShipTransform.position))
+        if (hasToFindDistance)
         {
-            GetComponent<DragAndDrop>().dropOnSpaceship = false;
+            invDistance = Vector2.Distance(transform.position, inventoryTransform.position);
+            spaceDistance = Vector2.Distance(transform.position, spaceShipTransform.position);
+
+            if (invDistance < spaceDistance)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
         else
         {
-            GetComponent<DragAndDrop>().dropOnSpaceship = true;
+            Debug.Log("Didn't find distance");
+            return false;
         }
     }
 

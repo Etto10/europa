@@ -13,13 +13,13 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
     private Transform inventory;
     private Transform spaceship;
 
-
+    private InventoryItemController controller;
 
     private void Awake()
     {
-
         rectTransform = GetComponent<RectTransform>();
         canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        controller = GetComponent<InventoryItemController>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -30,14 +30,12 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
     public void OnDrag(PointerEventData eventData)
     {
         rectTransform.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        dropOnSpaceship = controller.FindDistance();
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-
         inventory = GameObject.Find("InvContent").transform;
-
-
         spaceship = Chest.Instance.itemContent;
 
 
@@ -48,14 +46,13 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
             InventoryManager.Instance.Add(item);
             Chest.Instance.Remove(item);
         }
-        if (dropOnSpaceship)
+        else
         {
             transform.SetParent(spaceship, false);
             InventoryItemData item = GetComponent<InventoryItemController>().item;
             Chest.Instance.Add(item);
             InventoryManager.Instance.Remove(item);
         }
-
     }
 
 }

@@ -15,6 +15,8 @@ public class Chest : MonoBehaviour
     public Transform itemContent;
     public GameObject chestItem;
     public GameObject inventoryItem;
+    public Transform chestContent;
+
 
     [Header("Item List")]
     public InventoryItemController[] inventoryItems;
@@ -43,17 +45,29 @@ public class Chest : MonoBehaviour
         }
 
         // Creating Inventory UI
+        Debug.Log(itemsContained.Count);
         foreach (var item in itemsContained)
         {
-            GameObject obj = Instantiate(chestItem, itemContent);
+            GameObject obj = Instantiate(inventoryItem, itemContent);
             var itemName = obj.transform.Find("ItemName").GetComponent<TMP_Text>();
-            //var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
-            var removeButton = obj.transform.Find("DeleteBtn").GetComponent<Button>();
+            var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
+            //var itemDesc = obj.transform.Find("ItemDescription").GetComponent<TMP_Text>();
 
             itemName.text = item.displayName;
-            //itemIcon.sprite = item.icon;
+            itemIcon.sprite = item.icon;
+            //itemDesc.text = item.description;
+
+            InventoryItemController inventoryItemController = obj.GetComponent<InventoryItemController>();
+            if (!inventoryItemController.hasToFindDistance)
+            {
+                inventoryItemController.inventoryTransform = InventoryManager.Instance.inventoryTransform;
+                inventoryItemController.spaceShipTransform = InventoryManager.Instance.spaceshipTransform;
+                Debug.Log(inventoryItemController.item.id + " has to find distance");
+                inventoryItemController.hasToFindDistance = true;
+            }
 
         }
+
 
         SetInventoryItems();
     }
@@ -72,7 +86,6 @@ public class Chest : MonoBehaviour
         chestItem.SetActive(false);
     }
 
-
     private void Update()
     {
         if (playerDistance && !GridManager.Instance.gridMode)
@@ -83,10 +96,6 @@ public class Chest : MonoBehaviour
                 inventoryItem.SetActive(true);
                 chestItem.SetActive(true);
             }
-        }
-        else if (!playerDistance || GridManager.Instance.gridMode)
-        {
-            chestItem.SetActive(false);
         }
     }
 }

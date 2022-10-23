@@ -25,6 +25,9 @@ public class Loading : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         loadingTxt.text = "Loading...";
         yield return new WaitForSeconds(0.2f);
+
+        InventoryManager.Instance.inventoryPanel.SetActive(false);
+        Chest.Instance.chestItem.SetActive(false);
         gameObject.SetActive(false);
     }
 }
