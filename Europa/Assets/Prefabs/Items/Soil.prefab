@@ -4884,7 +4884,6 @@ GameObject:
   - component: {fileID: 3067797414325466643}
   - component: {fileID: 4137514735840785522}
   - component: {fileID: -875265324413261351}
-  - component: {fileID: 7604469117401782004}
   m_Layer: 3
   m_Name: Soil
   m_TagString: Soil
@@ -5000,19 +4999,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7604469117401782004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3067797414325466640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0257012ae992b46aabb0a1736455416c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canPlaceSeed: 0
 --- !u!1 &3681468292419589152
 GameObject:
   m_ObjectHideFlags: 0

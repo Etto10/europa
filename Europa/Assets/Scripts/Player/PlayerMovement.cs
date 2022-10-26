@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + input * speed);
+        rb.MovePosition(rb.position + speed * Time.fixedDeltaTime * input.normalized);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

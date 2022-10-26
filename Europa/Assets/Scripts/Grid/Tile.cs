@@ -22,18 +22,9 @@ public class Tile : MonoBehaviour
         spriteRenderer.color = isOffset ? offsetColor : baseColor;
     }
 
-    bool _active = false;
-    private void Update()
+    private void Start()
     {
-        if (highlight.activeInHierarchy && !_active)
-        {
-            _active = true;
-        }
-        else if(!highlight.activeInHierarchy && _active)
-        {
-            highlight.SetActive(false);
-            _active = false;
-        }
+        highlight.SetActive(false);
     }
 
     private void OnMouseOver()
@@ -69,10 +60,6 @@ public class Tile : MonoBehaviour
         {
             highlight.SetActive(false);
         }
-        else if (!gridManager.checkPlate && isTherePlate)
-        {
-            highlight.SetActive(false);
-        }
     }
     private void OnMouseDown()
     {
@@ -81,78 +68,84 @@ public class Tile : MonoBehaviour
 
         GridManager gridManager = GridManager.Instance;
 
+        bool _canPlace = false;
         if (canPlace && !gridManager.checkPlate && !isTherePlate)
         {
-            PlaceItem();
+            _canPlace = true;
         }
-        if (canPlace && gridManager.checkPlate && isTherePlate)
+        else if (canPlace && gridManager.checkPlate && isTherePlate)
         {
-            PlaceItem();
+            _canPlace = true;
         }
 
         if (canPlace && gridManager.checkSoil && isThereSoil)
         {
-            highlight.SetActive(true);
+            _canPlace = true;
         }
         else if (canPlace && !gridManager.checkSoil && !isThereSoil)
         {
-            highlight.SetActive(true);
+            _canPlace = true;
         }
 
         if (!canPlace) 
         {
+            _canPlace = false;
             gridManager.HideGrid();
         }
         if(gridManager.checkPlate && !isTherePlate)
         {
-            gridManager.HideGrid();
-        }
-        else if (!gridManager.checkPlate && isTherePlate)
-        {
+            _canPlace = false;
             gridManager.HideGrid();
         }
 
         if(gridManager.checkSoil && !isThereSoil)
         {
+            _canPlace = false;
             gridManager.HideGrid();
         }
         else if (!gridManager.checkSoil && isThereSoil)
         {
+            _canPlace = false;
             gridManager.HideGrid();
         }
+
+        if (_canPlace)
+            PlaceItem();
     }
 
     private void PlaceItem()
     {
-        if (isTherePlate && GridManager.Instance.checkPlate || !isTherePlate && !GridManager.Instance.checkPlate)
+        InventoryItemData item = GridManager.Instance.itemData;
+
+
+        GridManager.Instance.itemController.gameObject.GetComponent<InventoryItemController>().RemoveItem();
+
+        GameObject go = Instantiate(item.prefab, transform.position, Quaternion.identity);
+        go.transform.SetParent(GameObject.Find(item.id + "s").transform);
+
+        GridManager.Instance.HideGrid();
+        DataManager.Instance.AddItem(go);
+
+        if (item.id == "metal_plate")
         {
-            InventoryItemData item = GridManager.Instance.itemData;
-
-            GridManager.Instance.itemController.gameObject.GetComponent<InventoryItemController>().RemoveItem();
-
-            GameObject go = Instantiate(item.prefab, transform.position, Quaternion.identity);
-            go.transform.SetParent(GameObject.Find(item.id + "s").transform);
-
-            GridManager.Instance.HideGrid();
-            DataManager.Instance.AddItem(go);
-
-            if(item.id == "metal_plate")
-            {
-                isTherePlate = true;
-            }
-            else if(item.id == "soil")
-            {
-                isThereSoil = true;
-            }
-            else if(item.id == "plastic_sheet")
-            {
-                canPlace = false;
-            }
-
-            DataManager.Instance.AddTile(gameObject);
-
-            GridManager.Instance.itemData = null;
+            isTherePlate = true;
         }
+        else if (item.id == "soil")
+        {
+            isThereSoil = true;
+        }
+        else if (item.id == "plastic_sheet")
+        {
+            canPlace = false;
+        }
+        else if (item.id == "oxygen_generator")
+        {
+            canPlace = false;
+        }
+
+        DataManager.Instance.AddTile(gameObject);
+
+        GridManager.Instance.itemData = null;
     }
 
     private void OnMouseExit()

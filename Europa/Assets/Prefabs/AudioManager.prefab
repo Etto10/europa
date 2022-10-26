@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4145365970443738573
 MonoBehaviour:
@@ -47,28 +47,28 @@ MonoBehaviour:
   sounds:
   - name: main_theme
     clip: {fileID: 8300000, guid: d7c205af220e4494fb8235cf2ecc5ace, type: 3}
-    volume: 1
+    volume: 0.7
     pitch: 1
     loop: 0
     source: {fileID: 0}
     soundType: 0
   - name: oceans
     clip: {fileID: 8300000, guid: fffcd92edccce4b4e986e6fcd850d8c4, type: 3}
-    volume: 1
+    volume: 0.7
     pitch: 1
     loop: 0
     source: {fileID: 0}
     soundType: 0
   - name: revelation
     clip: {fileID: 8300000, guid: ac9fc6dd8857949e6a34b66b36413be9, type: 3}
-    volume: 1
+    volume: 0.7
     pitch: 1
     loop: 0
     source: {fileID: 0}
     soundType: 0
   - name: found_item
     clip: {fileID: 8300000, guid: 4648ef53fe07f4ab6bf1a3b871f46024, type: 3}
-    volume: 0.7
+    volume: 0.5
     pitch: 2
     loop: 0
     source: {fileID: 0}

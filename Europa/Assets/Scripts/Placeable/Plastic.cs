@@ -19,13 +19,6 @@ public class Plastic : MonoBehaviour
             playerCollision.SetActive(true);
             _light.SetActive(true);
         }
-        else if (collision.CompareTag("Soil"))
-        {
-            Soil soil = collision.gameObject.GetComponent<Soil>();
-
-            soil.canPlaceSeed = true;
-            Debug.Log("can place seed on " + soil.transform.name + "!");
-        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
