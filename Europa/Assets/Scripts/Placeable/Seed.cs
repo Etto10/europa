@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class Seed : MonoBehaviour
 {
-    public float growthTime, currentTime;
-    private string id;
+    [SerializeField]private float growthTime, currentTime;
+
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Sprite grownSprite;
+    [SerializeField] private BoxCollider2D pickUpCollider;
 
     private void Start()
     {
-        float _temp = PlayerPrefs.GetFloat(id);
-        if(_temp == 0) // It means playerprefs doesn't exist
-        {
-            id = Random.Range(0f, float.MaxValue).ToString() + Time.deltaTime;
-            PlayerPrefs.SetFloat(id, growthTime);
-        }
-        else
-        {
-            currentTime = _temp;
-        }
+        currentTime = growthTime;
     }
 
     private void Update()
     {
-        currentTime -= Time.deltaTime;
+        if(currentTime > 1f)
+            currentTime -= Time.deltaTime;
+        else
+        {
+            // Growing finished
+            spriteRenderer.sprite = grownSprite;
+            pickUpCollider.enabled = true;
+        }
+
     }
 }

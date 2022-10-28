@@ -36,7 +36,7 @@ public class DragAndDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, ID
     public void OnEndDrag(PointerEventData eventData)
     {
         inventory = GameObject.Find("InvContent").transform;
-        spaceship = Chest.Instance.itemContent;
+        spaceship = GameObject.Find("SpcContent").transform; 
 
 
         if (!dropOnSpaceship)

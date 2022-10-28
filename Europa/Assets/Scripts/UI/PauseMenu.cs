@@ -9,12 +9,7 @@ public class PauseMenu : MonoBehaviour
     public bool isPaused;
 
     public GameObject pauseObj;
-    public GameObject uiObj;
 
-    private void Start()
-    {
-        uiObj.SetActive(true);
-    }
 
     private void Update()
     {
@@ -22,7 +17,6 @@ public class PauseMenu : MonoBehaviour
         {
             isPaused = !isPaused;
             pauseObj.SetActive(isPaused);
-            uiObj.SetActive(false);
         }
     }
 
@@ -32,22 +26,13 @@ public class PauseMenu : MonoBehaviour
         pauseObj.SetActive(false);
     }
 
-    public void SaveAndLoad()
+    public void Quit()
     {
-        DataManager.Instance.SaveData();
         Application.Quit();
     }
 
     public void Menu()
     {
         SceneManager.LoadScene("MenuScene");
-    }
-
-    public void Save()
-    {
-        float hunger = PlayerStats.Instance.hunger;
-        float oxygen = PlayerStats.Instance.oxygen;
-        PlayerPrefs.SetFloat("hunger", hunger);
-        PlayerPrefs.SetFloat("oxygen", oxygen);
     }
 }

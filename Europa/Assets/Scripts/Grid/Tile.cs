@@ -124,7 +124,6 @@ public class Tile : MonoBehaviour
         go.transform.SetParent(GameObject.Find(item.id + "s").transform);
 
         GridManager.Instance.HideGrid();
-        DataManager.Instance.AddItem(go);
 
         if (item.id == "metal_plate")
         {
@@ -143,7 +142,6 @@ public class Tile : MonoBehaviour
             canPlace = false;
         }
 
-        DataManager.Instance.AddTile(gameObject);
 
         GridManager.Instance.itemData = null;
     }

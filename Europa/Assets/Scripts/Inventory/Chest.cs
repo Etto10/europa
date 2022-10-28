@@ -8,7 +8,7 @@ public class Chest : MonoBehaviour
 {
     public static Chest Instance;
     public bool playerDistance;
-    public List<InventoryItemData> itemsContained = new();
+    public List<InventoryItemData> items = new();
     
 
     [Header("References")]
@@ -16,6 +16,7 @@ public class Chest : MonoBehaviour
     public GameObject chestItem;
     [SerializeField] private GameObject inventoryItem;
     [SerializeField] private Transform chestContent;
+   
 
 
     [Header("Item List")]
@@ -24,16 +25,22 @@ public class Chest : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        for (int i = 0; i < chestContent.childCount; i++)
+        {
+            Transform child = chestContent.GetChild(i);
+            items.Add(child.GetComponent<InventoryItemController>().item);
+        }
     }
 
     public void Add(InventoryItemData item)
     {
-        itemsContained.Add(item);
+        items.Add(item);
     }
 
     public void Remove(InventoryItemData item)
     {
-        itemsContained.Remove(item);
+        items.Remove(item);
     }
 
     public void ListItems()
@@ -45,27 +52,15 @@ public class Chest : MonoBehaviour
         }
 
         // Creating Inventory UI
-        Debug.Log(itemsContained.Count);
-        foreach (var item in itemsContained)
+        Debug.Log(items.Count);
+        foreach (var item in items)
         {
             GameObject obj = Instantiate(inventoryItem, itemContent);
             var itemName = obj.transform.Find("ItemName").GetComponent<TMP_Text>();
             var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
-            //var itemDesc = obj.transform.Find("ItemDescription").GetComponent<TMP_Text>();
 
             itemName.text = item.displayName;
             itemIcon.sprite = item.icon;
-            //itemDesc.text = item.description;
-
-            InventoryItemController inventoryItemController = obj.GetComponent<InventoryItemController>();
-            if (!inventoryItemController.hasToFindDistance)
-            {
-                inventoryItemController.inventoryTransform = InventoryManager.Instance.inventoryTransform;
-                inventoryItemController.spaceShipTransform = InventoryManager.Instance.spaceshipTransform;
-                Debug.Log(inventoryItemController.item.id + " has to find distance");
-                inventoryItemController.hasToFindDistance = true;
-            }
-
         }
 
 
@@ -75,9 +70,9 @@ public class Chest : MonoBehaviour
     public void SetInventoryItems()
     {
         inventoryItems = itemContent.GetComponentsInChildren<InventoryItemController>();
-        for (int i = 0; i < itemsContained.Count; i++)
+        for (int i = 0; i < items.Count; i++)
         {
-            inventoryItems[i].AddItem(itemsContained[i]);
+            inventoryItems[i].AddItem(items[i]);
         }
     }
 

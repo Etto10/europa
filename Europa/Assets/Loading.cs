@@ -28,6 +28,7 @@ public class Loading : MonoBehaviour
 
         InventoryManager.Instance.inventoryPanel.SetActive(false);
         Chest.Instance.chestItem.SetActive(false);
+        GridManager.Instance.HideGrid();
         gameObject.SetActive(false);
     }
 }

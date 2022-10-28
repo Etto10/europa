@@ -79,6 +79,7 @@ public class AudioManager : MonoBehaviour
     {
         yield return new WaitForSeconds(songDuration);
         musicPlaying = false;
+        Play("space_noise");
     }
 
     public void ProgressMusic()

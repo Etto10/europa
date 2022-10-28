@@ -1,17 +1,17 @@
 using System;
 using UnityEngine;
+using TMPro;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryItemController : MonoBehaviour
+public class InventoryItemController : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public InventoryItemData item;
     [HideInInspector] public Transform inventoryTransform;
     [HideInInspector] public Transform spaceShipTransform;
-    public GameObject descriptionTxt;
+    [SerializeField] private GameObject descObj;
+    [SerializeField] private TMP_Text descriptionTxt;
 
-
-    
-    public bool hasToFindDistance = false;
 
     public void RemoveItem()
     {
@@ -72,31 +72,59 @@ public class InventoryItemController : MonoBehaviour
 
     }
 
+    
+
     float invDistance, spaceDistance;
     public bool FindDistance()
     {
-        if (hasToFindDistance)
-        {
-            invDistance = Vector2.Distance(transform.position, inventoryTransform.position);
-            spaceDistance = Vector2.Distance(transform.position, spaceShipTransform.position);
+        invDistance = Vector2.Distance(transform.position, inventoryTransform.position);
+        spaceDistance = Vector2.Distance(transform.position, spaceShipTransform.position);
 
-            if (invDistance < spaceDistance)
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+        if (invDistance < spaceDistance)
+        {
+            return false;
         }
         else
         {
-            Debug.Log("Didn't find distance");
-            return false;
+            return true;
         }
     }
 
-    
+
 
     //DO THE CODE FOR THE DESCRIPTION APPEARING AND DISAPPEARING
+
+    Color startColor;
+    Image image;
+
+    Color _startColor;
+    TMP_Text text;
+    private void Start()
+    {
+        InventoryManager inventoryManager = InventoryManager.Instance;
+        inventoryTransform = inventoryManager.inventoryTransform;
+        spaceShipTransform = inventoryManager.spaceshipTransform;
+
+        descriptionTxt.text = item.description;
+
+        image = descObj.GetComponent<Image>();
+        startColor = image.color;
+        image.color = Color.clear;
+
+        text = descriptionTxt;
+        _startColor = text.color;
+        text.color = Color.clear;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        image.color = Color.clear;
+        text.color = Color.clear;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        image.color = startColor;
+        text.color = _startColor;
+    }
 }

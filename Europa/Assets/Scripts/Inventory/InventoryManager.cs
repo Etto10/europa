@@ -14,6 +14,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject inventoryItem;
     public GameObject inventoryPanel;
 
+    private bool isOpen;
+
     [Header("Item List")]
     public InventoryItemController[] inventoryItems;
 
@@ -43,12 +45,14 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
         ListItems();
+        isOpen = false;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.I) || !isOpen)
         {
+            isOpen = true;
             ListItems();
             inventoryPanel.SetActive(true);
         }
@@ -69,19 +73,13 @@ public class InventoryManager : MonoBehaviour
             GameObject obj = Instantiate(inventoryItem, itemContent);
             var itemName = obj.transform.Find("ItemName").GetComponent<TMP_Text>();
             var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
-            //var itemDesc = obj.transform.Find("ItemDescription").GetComponent<TMP_Text>();
 
             itemName.text = item.displayName;
             itemIcon.sprite = item.icon;
-            //itemDesc.text = item.description;
 
             InventoryItemController inventoryItemController = obj.GetComponent<InventoryItemController>();
-            if (!inventoryItemController.hasToFindDistance)
-            {
-                inventoryItemController.inventoryTransform = inventoryTransform;
-                inventoryItemController.spaceShipTransform = spaceshipTransform;
-                inventoryItemController.hasToFindDistance = true;
-            }
+            inventoryItemController.inventoryTransform = inventoryTransform;
+            inventoryItemController.spaceShipTransform = spaceshipTransform;
         }
 
         SetInventoryItems();
