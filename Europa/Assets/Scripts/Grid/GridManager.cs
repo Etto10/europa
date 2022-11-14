@@ -23,6 +23,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int posFix = 19;
 
     [SerializeField] private GameObject gridModeUI;
+    [SerializeField] private GameObject useUI;
 
     private void Awake()
     {
@@ -39,6 +40,7 @@ public class GridManager : MonoBehaviour
         StartCoroutine(GenerateGrid());
         temp = new Vector3(width, height, posFix);
         gridModeUI.SetActive(false);
+        useUI.SetActive(true);
     }
 
     IEnumerator GenerateGrid()
@@ -59,6 +61,9 @@ public class GridManager : MonoBehaviour
             }
         }
 
+        DataManager.Instance.LoadData();
+        container.gameObject.SetActive(false);
+        yield return new WaitForSeconds(.5f);
     }
 
 
@@ -71,6 +76,7 @@ public class GridManager : MonoBehaviour
         gridMode = true;
         Chest.Instance.CloseChest();
         gridModeUI.SetActive(true);
+        useUI.SetActive(false);
     }
 
     public void HideGrid()
@@ -78,6 +84,7 @@ public class GridManager : MonoBehaviour
         container.gameObject.SetActive(false);
         gridMode = false;
         gridModeUI.SetActive(false);
+        useUI.SetActive(true);
     }
 
     //We use this update method to update the width, height and posFix while the game is running

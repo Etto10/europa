@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: VERY VERY VERY VERY VERY VERY VERY LONG DESCRPITON
+  m_text: "Se stai leggendo questo \xE8 andato tutto malissimo :/"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ae6fc49bc191b4588900d907cf2ad4e3, type: 2}
   m_sharedMaterial: {fileID: -4032757588287483797, guid: ae6fc49bc191b4588900d907cf2ad4e3, type: 2}
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.75
+  m_fontSize: 27.25
   m_fontSizeBase: 13
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -234,7 +234,6 @@ MonoBehaviour:
   spaceShipTransform: {fileID: 0}
   descObj: {fileID: 7207083365243583254}
   descriptionTxt: {fileID: 8107628099179037294}
-  hasToFindDistance: 0
 --- !u!114 &3550833961106390774
 MonoBehaviour:
   m_ObjectHideFlags: 0

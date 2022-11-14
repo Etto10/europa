@@ -29,6 +29,9 @@ public class ElementManager : MonoBehaviour
     [SerializeField] private TMP_Text carbonTxt, nitrogenTxt, sulphurTxt, phosphorusTxt, ironTxt;
     private List<TMP_Text> elementTexts = new(); //0: Carbon, 1: Nitrogen, 2: Sulphur, 3: Phosphorus, 4: Iron
 
+    [Header("Editor Only")]
+    [SerializeField] private bool[] elementsFound;
+
     private void Awake()
     {
         Instance = this;
@@ -48,6 +51,8 @@ public class ElementManager : MonoBehaviour
     /// 0: Carbon, 1: Nitrogen, 2: Sulphur, 3: Phosphorus, 4: Iron
     /// </summary>
     /// <param name="itemIndex"></param>
+    ///
+
     public void FoundItem(int elementIndex)
     {
         elementTexts[elementIndex].color = foundColor;
@@ -56,5 +61,6 @@ public class ElementManager : MonoBehaviour
         elementNameTxt.text = "Found " + inventoryItemDatas[elementIndex].displayName + "!";
         elementDescTxt.text = inventoryItemDatas[elementIndex].description + "!";
         elementImg.sprite = inventoryItemDatas[elementIndex].icon;
+        elementsFound[elementIndex] = true;
     }
 }

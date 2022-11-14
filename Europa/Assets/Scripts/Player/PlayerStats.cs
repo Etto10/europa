@@ -38,9 +38,7 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         stopOx = false;
-        hunger = maxHunger;
-        oxygen = maxOxygen;
-        SetMaxValues();
+        LoadValues();
         SetSliders();
         StartCoroutine(Hunger());
         StartCoroutine(Oxygen());
@@ -63,12 +61,6 @@ public class PlayerStats : MonoBehaviour
         oxygen -= oxygenRate;
         StartCoroutine(Oxygen());
         SetSliders();
-    }
-
-    private void SetMaxValues()
-    {
-        oxSlider.maxValue = maxOxygen;
-        hungerSlider.maxValue = maxHunger;
     }
 
     private void SetSliders()
@@ -127,5 +119,32 @@ public class PlayerStats : MonoBehaviour
             }
             SetSliders();
         }
+    }
+
+    private IEnumerator SaveValues()
+    {
+        PlayerPrefs.SetFloat("oxygen", oxygen);
+        PlayerPrefs.SetFloat("hunger", hunger);
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(SaveValues());
+    }
+
+    private void LoadValues()
+    {
+        oxygen = PlayerPrefs.GetFloat("oxygen");
+        hunger = PlayerPrefs.GetFloat("hunger");
+
+        if(oxygen == 0)
+        {
+            oxygen = maxOxygen;
+            hunger = maxHunger;
+            StartCoroutine(SaveValues());
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetFloat("oxygen", oxygen);
+        PlayerPrefs.SetFloat("hunger", hunger);
     }
 }

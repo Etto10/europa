@@ -5031,7 +5031,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 93e4de193481b4201aa41956ed86878a, type: 2}
-  seed: {fileID: 0}
+  seed: {fileID: 11400000, guid: ee60b67613f704000b12b303534a04bd, type: 2}
+  soil: {fileID: 11400000, guid: 9ffa1fb57f68249c9bbd39de55c26592, type: 2}
   element: {fileID: 0}
   soilPrefab: {fileID: 3067797414325466640, guid: a263aa0d4bef446819370eb3be0fea57, type: 3}
 --- !u!1 &3681468292419589152

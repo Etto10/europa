@@ -7,6 +7,7 @@ public class ElementPickUp : MonoBehaviour
 {
     public InventoryItemData item;
     [SerializeField] private InventoryItemData seed;
+    [SerializeField] private InventoryItemData soil;
     public Element element;
 
     [SerializeField] private GameObject soilPrefab;
@@ -18,9 +19,11 @@ public class ElementPickUp : MonoBehaviour
         inventoryManager.Add(item);
 
 
-        if(item.name == "seed")
+        if (item.id == "eberries")
         {
             inventoryManager.Add(seed);
+            inventoryManager.Add(seed);
+            inventoryManager.Add(soil);
         }
 
 

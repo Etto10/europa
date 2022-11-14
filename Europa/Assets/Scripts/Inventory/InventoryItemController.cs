@@ -59,11 +59,19 @@ public class InventoryItemController : MonoBehaviour, IPointerEnterHandler, IPoi
                 gridManager.checkPlate = false;
 
                 break;
-            case InventoryItemData.ItemType.Analyzer:
-                //Gray out the screen and highlight structures
-                break;
             case InventoryItemData.ItemType.Food:
                 // Eat
+                PlayerStats playerStats = PlayerStats.Instance;
+                float max = playerStats.maxHunger;
+                if (playerStats.hunger < max-20)
+                {
+                    playerStats.hunger += 20;
+                }
+                else if(playerStats.hunger < max)
+                {
+                    playerStats.hunger += max - playerStats.hunger;
+                }
+                Destroy(gameObject);
                 break;
 
             default:

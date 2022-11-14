@@ -47,6 +47,11 @@ public class PlayerMovement : MonoBehaviour
         {
             Chest.Instance.playerDistance = true;
         }
+
+        if (collision.CompareTag("CreepyMusic"))
+        {
+            AudioManager.Instance.CreepyMusic();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

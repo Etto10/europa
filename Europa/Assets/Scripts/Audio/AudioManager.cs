@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioMixerGroup musicMixer, sfxMixer;
 
     [SerializeField] private Sound[] progressMusic;
+    [SerializeField] private Sound[] creepyMusic;
 
     private void Awake()
     {
@@ -26,7 +27,7 @@ public class AudioManager : MonoBehaviour
 
 
 
-            DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
 
         foreach (Sound s in sounds)
         {
@@ -72,7 +73,7 @@ public class AudioManager : MonoBehaviour
                 s.source.Play();
         }
         else
-            Debug.LogError("Sound not found!");
+            Debug.LogError("Sound " + name + " not found!");
     }
 
     IEnumerator StopPlaying(float songDuration)
@@ -91,5 +92,16 @@ public class AudioManager : MonoBehaviour
         }
 
         Play(progressMusic[UnityEngine.Random.Range(0, progressMusic.Length)].name);
+    }
+
+    public void CreepyMusic()
+    {
+        if(creepyMusic.Length == 0)
+        {
+            Debug.LogError("Music must still be added!");
+            return;
+        }
+
+        Play(creepyMusic[UnityEngine.Random.Range(0, progressMusic.Length)].name);
     }
 }

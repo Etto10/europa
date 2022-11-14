@@ -76,15 +76,16 @@ MonoBehaviour:
   musicMixer: {fileID: -488780636897036315, guid: d35a55db6acab4a33976b381b06a48bb, type: 2}
   sfxMixer: {fileID: 2996565830807426094, guid: d35a55db6acab4a33976b381b06a48bb, type: 2}
   progressMusic:
-  - name: oceans
-    clip: {fileID: 8300000, guid: fffcd92edccce4b4e986e6fcd850d8c4, type: 3}
+  - name: revelation
+    clip: {fileID: 8300000, guid: ac9fc6dd8857949e6a34b66b36413be9, type: 3}
     volume: 1
     pitch: 1
     loop: 0
     source: {fileID: 0}
     soundType: 0
-  - name: revelation
-    clip: {fileID: 8300000, guid: ac9fc6dd8857949e6a34b66b36413be9, type: 3}
+  creepyMusic:
+  - name: oceans
+    clip: {fileID: 8300000, guid: fffcd92edccce4b4e986e6fcd850d8c4, type: 3}
     volume: 1
     pitch: 1
     loop: 0

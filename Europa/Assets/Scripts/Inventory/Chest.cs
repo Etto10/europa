@@ -16,8 +16,8 @@ public class Chest : MonoBehaviour
     public GameObject chestItem;
     [SerializeField] private GameObject inventoryItem;
     [SerializeField] private Transform chestContent;
-   
-
+    [SerializeField] private BoxCollider2D _collider;
+    
 
     [Header("Item List")]
     public InventoryItemController[] inventoryItems;
@@ -31,6 +31,7 @@ public class Chest : MonoBehaviour
             Transform child = chestContent.GetChild(i);
             items.Add(child.GetComponent<InventoryItemController>().item);
         }
+
     }
 
     public void Add(InventoryItemData item)
@@ -81,6 +82,7 @@ public class Chest : MonoBehaviour
         chestItem.SetActive(false);
     }
 
+
     private void Update()
     {
         if (playerDistance && !GridManager.Instance.gridMode)
@@ -91,6 +93,7 @@ public class Chest : MonoBehaviour
                 inventoryItem.SetActive(true);
                 chestItem.SetActive(true);
             }
+
         }
     }
 }

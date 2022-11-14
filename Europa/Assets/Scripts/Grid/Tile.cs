@@ -13,7 +13,7 @@ public class Tile : MonoBehaviour
     //[HideInInspector]
     public bool canPlace = false;
 
-    public bool isTherePlate, isThereSoil = false;
+    public bool isTherePlate, isThereSoil, isThereSeed = false;
 
     public bool _isOffset;
     public void Init(bool isOffset)
@@ -57,6 +57,10 @@ public class Tile : MonoBehaviour
             highlight.SetActive(false);
         }
         if (gridManager.checkPlate && !isTherePlate)
+        {
+            highlight.SetActive(false);
+        }
+        if(gridManager.checkSoil && isThereSeed)
         {
             highlight.SetActive(false);
         }
@@ -108,6 +112,11 @@ public class Tile : MonoBehaviour
             _canPlace = false;
             gridManager.HideGrid();
         }
+        if(gridManager.checkSoil && isThereSeed)
+        {
+            _canPlace = false;
+            gridManager.HideGrid();
+        }
 
         if (_canPlace)
             PlaceItem();
@@ -124,6 +133,7 @@ public class Tile : MonoBehaviour
         go.transform.SetParent(GameObject.Find(item.id + "s").transform);
 
         GridManager.Instance.HideGrid();
+        DataManager.Instance.AddItem(go);
 
         if (item.id == "metal_plate")
         {
@@ -141,8 +151,12 @@ public class Tile : MonoBehaviour
         {
             canPlace = false;
         }
+        else if(item.id == "seed")
+        {
+            isThereSeed = true;
+        }
 
-
+        DataManager.Instance.AddTile(gameObject);
         GridManager.Instance.itemData = null;
     }
 

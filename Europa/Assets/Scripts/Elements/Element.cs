@@ -13,4 +13,5 @@ public class Element : MonoBehaviour
         Vector3 rot = new(0, 0, x * 90f);
         transform.localRotation = Quaternion.Euler(rot);
     }
+
 }
