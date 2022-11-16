@@ -127,8 +127,6 @@ public class Tile : MonoBehaviour
         InventoryItemData item = GridManager.Instance.itemData;
 
 
-        GridManager.Instance.itemController.gameObject.GetComponent<InventoryItemController>().RemoveItem();
-
         GameObject go = Instantiate(item.prefab, transform.position, Quaternion.identity);
         go.transform.SetParent(GameObject.Find(item.id + "s").transform);
 

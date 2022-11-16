@@ -14,16 +14,16 @@ public class ElementPickUp : MonoBehaviour
 
     private void Pickup()
     {
-        InventoryManager inventoryManager = InventoryManager.Instance;
-        //Make sure that when you add the item you set everything
-        inventoryManager.Add(item);
+        //Add item to inventory
 
 
-        if (item.id == "eberries")
+        if (item.id == "eberries" && seed != null && soil != null)
         {
-            inventoryManager.Add(seed);
-            inventoryManager.Add(seed);
-            inventoryManager.Add(soil);
+            //Add a seed and two soils
+        }
+        else if(item.id == "ebberries" && (seed == null || soil == null))
+        {
+            Debug.Log("Seed or soil is null");
         }
 
 
@@ -52,7 +52,6 @@ public class ElementPickUp : MonoBehaviour
             Instantiate(soilPrefab, pos, Quaternion.identity);
         }
 
-        inventoryManager.ListItems();
         gameObject.SetActive(false);
         Destroy(gameObject);
     }
@@ -66,10 +65,12 @@ public class ElementPickUp : MonoBehaviour
 
     private void OnMouseDown()
     {
+        /*
         if (!hasBeenPicked || InventoryManager.Instance.items.Count < InventoryManager.Instance.maxItems || item.itemType == InventoryItemData.ItemType.Item)
         {
             hasBeenPicked = true;
             Pickup();
         }
+        */
     }
 }

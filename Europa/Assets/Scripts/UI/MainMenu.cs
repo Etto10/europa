@@ -5,23 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public GameObject options;
-    public GameObject main;
+    [SerializeField] private GameObject[] panels;
 
-    public void Play()
+    public void SetSlotAndPlay(int slot)
     {
+        PlayerPrefs.SetInt("slot", slot);
+        StartCoroutine(SwitchScene());
+    }
+
+    private IEnumerator SwitchScene ()
+    {
+        yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene("GameScene");
-    }
-
-    public void Options()
-    {
-        options.SetActive(true);
-        main.SetActive(false);
-    }
-
-    public void Socials()
-    {
-        Application.OpenURL("instagram.com/carlo.lamedica");
     }
 
     public void Exit()
@@ -29,10 +24,13 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void CloseOptions()
+    public void OpenPanel(GameObject panel)
     {
-        options.SetActive(false);
-        main.SetActive(true);
-    }
+        for (int i = 0; i < panels.Length; i++)
+        {
+            panels[i].SetActive(false);
+        }
 
+        panel.SetActive(true);
+    }
 }

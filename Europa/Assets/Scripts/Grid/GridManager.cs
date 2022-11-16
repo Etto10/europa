@@ -12,7 +12,6 @@ public class GridManager : MonoBehaviour
 
     public InventoryItemData itemData;
 
-    public InventoryItemController itemController;
 
     [HideInInspector]
     public bool gridMode;
@@ -30,7 +29,6 @@ public class GridManager : MonoBehaviour
         Instance = this;
         gridMode = false;
         itemData = null;
-        itemController = null;
     }
 
     private void Start()
@@ -74,7 +72,6 @@ public class GridManager : MonoBehaviour
             container.gameObject.SetActive(true);
         }
         gridMode = true;
-        Chest.Instance.CloseChest();
         gridModeUI.SetActive(true);
         useUI.SetActive(false);
     }

@@ -16,19 +16,23 @@ public class DataManager : MonoBehaviour
     public List<PrefabItem> prefabItems = new();
 
     [Header("Parents")]
-    [SerializeField] private Transform metalPlateP, oxygenGeneratorP, plasticSheetP, seedP, soilP; //All the different parents 
+    [SerializeField] private Transform metalPlateP, oxygenGeneratorP, plasticSheetP, seedP, soilP; //All the different parents
+
 
     private string path;
     private void Awake()
     {
         Instance = this;
-
-        path = Application.persistentDataPath + "/europa.xml";
-
     }
 
     private void Start()
     {
+        string slot = PlayerPrefs.GetInt("slot").ToString();
+        path = Application.persistentDataPath + "/SaveSlot" + slot + "/europa.xml";
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(Application.persistentDataPath + "/SaveSlot" + slot); // returns a DirectoryInfo object
+        }
         StartCoroutine(SaveCoroutine());
     }
 
@@ -61,6 +65,9 @@ public class DataManager : MonoBehaviour
         FileStream stream = new(path, FileMode.Create);
         xmlSerializer.Serialize(stream, ItemDB);
         stream.Close();
+
+        DayCycle.Instance.Save();
+        PlayerStats.Instance.Save();
     }
 
     bool firstLoad = true;

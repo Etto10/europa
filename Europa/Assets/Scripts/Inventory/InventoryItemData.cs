@@ -11,6 +11,7 @@ public class InventoryItemData : ScriptableObject
     public GameObject prefab;
     public ItemType itemType;
     public string description;
+    public int itemQuantity;
 
     public enum ItemType
     {

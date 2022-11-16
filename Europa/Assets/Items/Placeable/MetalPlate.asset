@@ -18,4 +18,4 @@ MonoBehaviour:
   prefab: {fileID: 3694564871692976542, guid: e81a0463e332a4022991fb5334347ad4, type: 3}
   itemType: 0
   description: A solid foundation to place anything you desire
-  itemNumber: 4
+  itemQuantity: 10

@@ -43,22 +43,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Chest")
-        {
-            Chest.Instance.playerDistance = true;
-        }
-
         if (collision.CompareTag("CreepyMusic"))
         {
             AudioManager.Instance.CreepyMusic();
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.name == "Chest")
-        {
-            Chest.Instance.playerDistance = false;
         }
     }
 }

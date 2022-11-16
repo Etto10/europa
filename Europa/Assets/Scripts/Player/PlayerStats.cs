@@ -121,12 +121,10 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    private IEnumerator SaveValues()
+    public void Save()
     {
         PlayerPrefs.SetFloat("oxygen", oxygen);
         PlayerPrefs.SetFloat("hunger", hunger);
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(SaveValues());
     }
 
     private void LoadValues()
@@ -138,7 +136,6 @@ public class PlayerStats : MonoBehaviour
         {
             oxygen = maxOxygen;
             hunger = maxHunger;
-            StartCoroutine(SaveValues());
         }
     }
 

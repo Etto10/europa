@@ -1,102 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    public static InventoryManager Instance;
-    public List<InventoryItemData> items = new();
+    public List<InventoryItemController> itemsContained = new();
+    private List<GameObject> UIItemsContained = new();
 
-    [Header("References")]
-    public Transform itemContent;
-    public GameObject inventoryItem;
-    public GameObject inventoryPanel;
+    [SerializeField] private GameObject inventoryItemPrefab;
 
-    private bool isOpen;
+    [SerializeField] private Transform inventoryContent;
 
-    [Header("Item List")]
-    public InventoryItemController[] inventoryItems;
-
-    [Header("Inventory Settings")]
-    public int maxItems;
-
-    private void Awake()
+    public void AddItem(InventoryItemData item)
     {
-        Instance = this;
-    }
-
-    public void Add(InventoryItemData item)
-    {
-        if (itemContent.childCount >= maxItems)
-            return;
-
-        items.Add(item);
-    }
-
-    public void Remove(InventoryItemData item)
-    {
-        items.Remove(item);
-    }
-
-    public Transform inventoryTransform, spaceshipTransform;
-
-    private void Start()
-    {
-        ListItems();
-        isOpen = false;
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I) || !isOpen)
+        bool foundMatch = false;
+        for (int i = 0; i < itemsContained.Count; i++)
         {
-            isOpen = true;
-            ListItems();
-            inventoryPanel.SetActive(true);
+            if(itemsContained[i].inventoryItemData.id == item.id)
+            {
+                itemsContained[i].inventoryItemData.itemQuantity += 1;
+                foundMatch = true;
+                UpdateUI();
+                break;
+            }
+        }
+
+        if (!foundMatch)
+        {
+            InventoryItemController newItemController = new();
+            newItemController.inventoryItemData = item;
+            newItemController.inventoryItemData.itemQuantity = 1;
+            itemsContained.Add(newItemController);
+            AddItemUI(newItemController) ;
         }
     }
 
-    bool firstTime = true;
-    public void ListItems()
+    private void AddItemUI(InventoryItemController itemController)
     {
-        // Making sure that items don't multiply by destroying the previous elements
-        foreach (Transform item in itemContent)
-        {
-            Destroy(item.gameObject);
-        }
+        InventoryItemData item = itemController.inventoryItemData;
 
-        // Creating Inventory UI
-        foreach (var item in items)
-        {
-            GameObject obj = Instantiate(inventoryItem, itemContent);
-            var itemName = obj.transform.Find("ItemName").GetComponent<TMP_Text>();
-            var itemIcon = obj.transform.Find("ItemIcon").GetComponent<Image>();
+        GameObject go = Instantiate(inventoryItemPrefab, inventoryContent);
+        InventoryItemController inventoryItemController = go.GetComponent<InventoryItemController>();
 
-            itemName.text = item.displayName;
-            itemIcon.sprite = item.icon;
+        inventoryItemController.inventoryItemData = item;
+        inventoryItemController.nameTxt.text = item.displayName;
+        inventoryItemController.descriptionTxt.text = item.description;
+        inventoryItemController.itemIcon.sprite = item.icon;
+        inventoryItemController.itemQuantity.text = item.itemQuantity.ToString();
 
-            InventoryItemController inventoryItemController = obj.GetComponent<InventoryItemController>();
-            inventoryItemController.inventoryTransform = inventoryTransform;
-            inventoryItemController.spaceShipTransform = spaceshipTransform;
-        }
-
-        SetInventoryItems();
-
-        if (firstTime)
-        {
-            firstTime = false;
-            inventoryPanel.SetActive(false);
-        }
+        UIItemsContained.Add(go);
     }
 
-    public void SetInventoryItems()
+    private void UpdateUI()
     {
-        inventoryItems = itemContent.GetComponentsInChildren<InventoryItemController>();
-        for (int i = 0; i < items.Count; i++)
+        foreach (GameObject _gameObject in UIItemsContained)
         {
-            inventoryItems[i].AddItem(items[i]);
+            Destroy(_gameObject);
+        }
+
+        foreach (InventoryItemController item in itemsContained)
+        {
+            AddItemUI(item);
         }
     }
 }
